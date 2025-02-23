@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-    <h1>Wainwright Guide - By the Geordie Hiker</h1>
+    <h1>Wainwright Guide</h1>
     <h2>Top 10 Popular Hikes</h2>
     <div id="top-wainwrights" class="button-container"></div>
     <h2>Filters</h2>
@@ -64,137 +64,192 @@
     <div id="info-container"></div>
 
     <script>
-    const allWainwrights = [
-        {name:"Haystacks",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"597m",hikeLength:5,lat:54.507,lon:-3.247,gpxLink:"https://www.walklakes.co.uk/gpx/Haystacks.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.507,-3.247",mountainForecast:"https://www.mountain-forecast.com/peaks/Haystacks/forecasts/597",carpark:"Gatesgarth Car Park",postcode:"CA13 9XA",what3words:"///tarns.water.peace",funFacts:"Haystacks was Wainwright's favorite fell, with stunning tarns.",additionalInfo:"Features beautiful tarns and a rugged summit, Haystacks offers a moderate hike with scrambling sections and breathtaking views over Buttermere.",instagramReel:"https://www.instagram.com/reel/haystacks"}
-    ];
-
-    const topWainwrights = [
-        {name:"Scafell Pike",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"978m",hikeLength:9,lat:54.454,lon:-3.211,gpxLink:"https://www.walklakes.co.uk/gpx/Scafell_Pike.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.454,-3.211",mountainForecast:"https://www.mountain-forecast.com/peaks/Scafell-Pike/forecasts/978",carpark:"Wasdale Head Car Park",postcode:"CA20 1EX",what3words:"///rocks.cliff.path",funFacts:"England's highest mountain with panoramic views.",additionalInfo:"A challenging ascent to the highest peak in England, Scafell Pike offers rugged terrain and stunning vistas, popular among serious hikers.",instagramReel:"https://www.instagram.com/reel/scafell_pike"},
-        {name:"Helvellyn",region:"Eastern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"950m",hikeLength:8.5,lat:54.527,lon:-3.016,gpxLink:"https://www.walklakes.co.uk/gpx/Helvellyn.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.527,-3.016",mountainForecast:"https://www.mountain-forecast.com/peaks/Helvellyn/forecasts/950",carpark:"Glenridding Car Park",postcode:"CA11 0PA",what3words:"///mountain.cairn.ridge",funFacts:"Helvellyn is the third-highest peak in the Lake District, with views extending to Scotland on clear days!",additionalInfo:"The summit is accessible via several routes, including the popular Striding Edge, which offers some thrilling scrambling. It's a challenging but iconic hike with spectacular views.",instagramReel:"https://www.instagram.com/reel/helvellyn"},
-        {name:"Skiddaw",region:"Northern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"931m",hikeLength:6.2,lat:54.647,lon:-3.146,gpxLink:"https://www.walklakes.co.uk/gpx/Skiddaw.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.647,-3.146",mountainForecast:"https://www.mountain-forecast.com/peaks/Skiddaw/forecasts/931",carpark:"Latrigg Car Park",postcode:"CA12 4PH",what3words:"///summit.trek.easy",funFacts:"One of the easiest high fells to climb with expansive views.",additionalInfo:"A moderate ascent from Keswick, Skiddaw offers a straightforward climb with stunning views over the Northern Fells and beyond.",instagramReel:"https://www.instagram.com/reel/skiddaw"},
-        {name:"Great Gable",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"899m",hikeLength:5.8,lat:54.482,lon:-3.219,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Gable.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.482,-3.219",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Gable/forecasts/899",carpark:"Seathwaite Car Park",postcode:"CA12 5XQ",what3words:"///wet.muddy.trail",funFacts:"Great Gable is one of the most iconic peaks, known for its dramatic shape and sweeping views across the Lake District.",additionalInfo:"This mountain has historical significance as it was dedicated to the fallen soldiers of World War I, offering a challenging hike with scrambling sections and breathtaking vistas.",instagramReel:"https://www.instagram.com/reel/great_gable"},
-        {name:"Blencathra",region:"Northern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"868m",hikeLength:7.5,lat:54.640,lon:-3.050,gpxLink:"https://www.walklakes.co.uk/gpx/Blencathra.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.640,-3.050",mountainForecast:"https://www.mountain-forecast.com/peaks/Blencathra/forecasts/868",carpark:"Scales Fell Car Park",postcode:"CA12 4TL",what3words:"///sharp.steep.path",funFacts:"Blencathra is known for its rugged ridges and outstanding views, often considered one of the best hikes in the Lake District.",additionalInfo:"A challenging route for experienced hikers, Blencathra provides dramatic scenery and exhilarating climbs, including the famous Sharp Edge scramble, with breathtaking views over the Northern Fells.",instagramReel:"https://www.instagram.com/reel/blencathra"},
-        {name:"Catbells",region:"Central Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"451m",hikeLength:3.5,lat:54.568,lon:-3.170,gpxLink:"https://www.walklakes.co.uk/gpx/Catbells.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.568,-3.170",mountainForecast:"https://www.mountain-forecast.com/peaks/Catbells/forecasts/451",carpark:"Catbells Car Park",postcode:"CA12 5XP",what3words:"///easy.walk.summit",funFacts:"Catbells is perfect for beginners and offers one of the best views of Derwentwater.",additionalInfo:"A great family hike, easy but with rewarding panoramic views from the summit, Catbells is one of the most popular fells due to its accessibility and stunning scenery.",instagramReel:"https://www.instagram.com/reel/catbells"},
-        {name:"Bowfell",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"902m",hikeLength:6.5,lat:54.448,lon:-3.126,gpxLink:"https://www.walklakes.co.uk/gpx/Bowfell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.448,-3.126",mountainForecast:"https://www.mountain-forecast.com/peaks/Bowfell/forecasts/902",carpark:"Old Dungeon Ghyll",postcode:"LA22 9JY",what3words:"///fell.rocks.view",funFacts:"Bowfell offers stunning views of the Langdale Pikes and beyond.",additionalInfo:"A classic Southern Fells hike with some rocky sections, Bowfell is a challenging ascent that rewards with panoramic views over the Langdale Valley and the Scafell range.",instagramReel:"https://www.instagram.com/reel/bowfell"},
-        {name:"Haystacks",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"597m",hikeLength:5,lat:54.507,lon:-3.247,gpxLink:"https://www.walklakes.co.uk/gpx/Haystacks.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.507,-3.247",mountainForecast:"https://www.mountain-forecast.com/peaks/Haystacks/forecasts/597",carpark:"Gatesgarth Car Park",postcode:"CA13 9XA",what3words:"///tarns.water.peace",funFacts:"Haystacks was Wainwright's favorite fell, with stunning tarns.",additionalInfo:"Features beautiful tarns and a rugged summit, Haystacks offers a moderate hike with scrambling sections and breathtaking views over Buttermere.",instagramReel:"https://www.instagram.com/reel/haystacks"},
-        {name:"Langdale Pikes",region:"Central Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"736m",hikeLength:6,lat:54.456,lon:-3.097,gpxLink:"https://www.walklakes.co.uk/gpx/Langdale_Pikes.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.456,-3.097",mountainForecast:"https://www.mountain-forecast.com/peaks/Harrison-Stickle/forecasts/736",carpark:"New Dungeon Ghyll",postcode:"LA22 9JX",what3words:"///pikes.walk.lang",funFacts:"A group of peaks with dramatic profiles visible from miles away.",additionalInfo:"A moderate hike with optional scrambles, the Langdale Pikes offer stunning views over Langdale Valley and the Central Fells, a classic Lake District outing.",instagramReel:"https://www.instagram.com/reel/langdale_pikes"},
-        {name:"Coniston Old Man",region:"Southern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"803m",hikeLength:6.5,lat:54.370,lon:-3.118,gpxLink:"https://www.walklakes.co.uk/gpx/Coniston_Old_Man.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.370,-3.118",mountainForecast:"https://www.mountain-forecast.com/peaks/Coniston-Old-Man/forecasts/803",carpark:"Coniston Car Park",postcode:"LA21 8ED",what3words:"///old.man.hike",funFacts:"A classic fell with views over Coniston Water and old mining history.",additionalInfo:"Popular and accessible with a steady climb, Coniston Old Man offers a moderate hike with stunning views over Coniston Water and a glimpse into its industrial past.",instagramReel:"https://www.instagram.com/reel/coniston_old_man"}
-    ];
-
-    async function fetchWeather(lat, lon) {
-        try {
-            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-            const data = await response.json();
-            const weatherCode = data.current_weather.weathercode;
-            const weatherMap = {
-                0: "Clear",
-                1: "Sunny",
-                2: "Partly Cloudy",
-                3: "Cloudy",
-                45: "Foggy",
-                51: "Rainy",
-                61: "Rainy",
-                71: "Snowy",
-                95: "Stormy"
-            };
-            return weatherMap[weatherCode] || "Unknown";
-        } catch (error) {
-            console.error(`Error fetching weather for lat:${lat}, lon:${lon}`, error);
-            return "Unknown";
+        async function fetchWeather(lat, lon) {
+            try {
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                const data = await response.json();
+                const weatherCode = data.current_weather.weathercode;
+                const weatherMap = {
+                    0: "Clear",
+                    1: "Sunny",
+                    2: "Partly Cloudy",
+                    3: "Cloudy",
+                    45: "Foggy",
+                    51: "Rainy",
+                    61: "Rainy",
+                    71: "Snowy",
+                    95: "Stormy"
+                };
+                return weatherMap[weatherCode] || "Unknown";
+            } catch (error) {
+                console.error(`Error fetching weather for lat:${lat}, lon:${lon}`, error);
+                return "Unknown";
+            }
         }
-    }
 
-    async function updateWeather() {
-        const weatherPromises = allWainwrights.map(async (wainwright) => {
-            wainwright.weather = await fetchWeather(wainwright.lat, wainwright.lon);
-        });
-        const topWeatherPromises = topWainwrights.map(async (wainwright) => {
-            wainwright.weather = await fetchWeather(wainwright.lat, wainwright.lon);
-        });
-        await Promise.all([...weatherPromises, ...topWeatherPromises]);
-    }
-
-    function displayTopWainwrights() {
-        const topWainwrightsDiv = document.getElementById("top-wainwrights");
-        topWainwrightsDiv.innerHTML = "";
-        const buttons = topWainwrights.map(wainwright => {
-            const button = document.createElement("button");
-            button.className = "button";
-            button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
-            button.onclick = () => showInfo(wainwright);
-            return button;
-        });
-        topWainwrightsDiv.append(...buttons);
-    }
-
-    function displayWainwrights(filtered = allWainwrights) {
-        const wainwrightListDiv = document.getElementById("wainwright-list");
-        wainwrightListDiv.innerHTML = "";
-        const buttons = filtered.map(wainwright => {
-            const button = document.createElement("button");
-            button.className = "button";
-            button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
-            button.onclick = () => showInfo(wainwright);
-            return button;
-        });
-        wainwrightListDiv.append(...buttons);
-    }
-
-    function applyFilters() {
-        const region = document.getElementById("region-filter").value;
-        const difficulty = document.getElementById("difficulty-filter").value;
-        const scramble = document.getElementById("scramble-filter").value;
-        const dogFriendly = document.getElementById("dog-filter").value;
-        const length = document.getElementById("length-filter").value;
-        let filtered = [...allWainwrights];
-        if (region) filtered = filtered.filter(w => w.region === region);
-        if (difficulty) filtered = filtered.filter(w => w.difficulty === difficulty);
-        if (scramble) filtered = filtered.filter(w => w.scramble === scramble);
-        if (dogFriendly) filtered = filtered.filter(w => w.dogFriendly === dogFriendly);
-        if (length) {
-            filtered = filtered.filter(w => {
-                if (length === "Short") return w.hikeLength <= 4;
-                if (length === "Medium") return w.hikeLength > 4 && w.hikeLength <= 7;
-                if (length === "Long") return w.hikeLength > 7;
-                return true;
+        async function updateWeather() {
+            const weatherPromises = allWainwrights.map(async (wainwright) => {
+                wainwright.weather = await fetchWeather(wainwright.lat, wainwright.lon);
             });
+            const topWeatherPromises = topWainwrights.map(async (wainwright) => {
+                wainwright.weather = await fetchWeather(wainwright.lat, wainwright.lon);
+            });
+            await Promise.all([...weatherPromises, ...topWeatherPromises]);
         }
-        displayWainwrights(filtered);
-    }
 
-    function showInfo(wainwright) {
-        const infoDiv = document.getElementById("info-container");
-        infoDiv.innerHTML = `
-            <div class="wainwright-info">
-                <h3>${wainwright.name}</h3>
-                <p><strong>Region:</strong> ${wainwright.region}</p>
-                <p><strong>Difficulty:</strong> ${wainwright.difficulty}</p>
-                <p><strong>Scramble:</strong> ${wainwright.scramble}</p>
-                <p><strong>Dog Friendly:</strong> ${wainwright.dogFriendly}</p>
-                <p><strong>Weather:</strong> ${wainwright.weather || 'Loading...'}</p>
-                <p><strong>Height:</strong> ${wainwright.height}</p>
-                <p><strong>Hike Length:</strong> ${wainwright.hikeLength} miles</p>
-                <p><strong>GPX Route:</strong> <a href="${wainwright.gpxLink}" target="_blank">Download</a></p>
-                <p><strong>OS Map:</strong> <a href="${wainwright.osMapLink}" target="_blank">View</a></p>
-                <p><strong>Mountain Forecast:</strong> <a href="${wainwright.mountainForecast}" target="_blank">Check</a></p>
-                <p><strong>Car Park:</strong> ${wainwright.carpark} (${wainwright.postcode})</p>
-                <p><strong>What3Words:</strong> ${wainwright.what3words}</p>
-                <p><strong>Fun Fact:</strong> ${wainwright.funFacts}</p>
-                <p><strong>Additional Info:</strong> ${wainwright.additionalInfo}</p>
-                <p><strong>Instagram Reel:</strong> <a href="${wainwright.instagramReel}" target="_blank">Watch</a></p>
-            </div>
-        `;
-    }
+        function displayTopWainwrights() {
+            const topWainwrightsDiv = document.getElementById("top-wainwrights");
+            topWainwrightsDiv.innerHTML = "";
+            const buttons = topWainwrights.map(wainwright => {
+                const button = document.createElement("button");
+                button.className = "button";
+                button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
+                button.onclick = () => showInfo(wainwright);
+                return button;
+            });
+            topWainwrightsDiv.append(...buttons);
+        }
 
-    async function init() {
-        displayTopWainwrights();
-        displayWainwrights();
-        await updateWeather();
-        displayTopWainwrights();
-        displayWainwrights();
-    }
+        function displayWainwrights(filtered = allWainwrights) {
+            const wainwrightListDiv = document.getElementById("wainwright-list");
+            wainwrightListDiv.innerHTML = "";
+            const buttons = filtered.map(wainwright => {
+                const button = document.createElement("button");
+                button.className = "button";
+                button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
+                button.onclick = () => showInfo(wainwright);
+                return button;
+            });
+            wainwrightListDiv.append(...buttons);
+        }
+
+        function applyFilters() {
+            const region = document.getElementById("region-filter").value;
+            const difficulty = document.getElementById("difficulty-filter").value;
+            const scramble = document.getElementById("scramble-filter").value;
+            const dogFriendly = document.getElementById("dog-filter").value;
+            const length = document.getElementById("length-filter").value;
+            let filtered = [...allWainwrights];
+            if (region) filtered = filtered.filter(w => w.region === region);
+            if (difficulty) filtered = filtered.filter(w => w.difficulty === difficulty);
+            if (scramble) filtered = filtered.filter(w => w.scramble === scramble);
+            if (dogFriendly) filtered = filtered.filter(w => w.dogFriendly === dogFriendly);
+            if (length) {
+                filtered = filtered.filter(w => {
+                    if (length === "Short") return w.hikeLength <= 4;
+                    if (length === "Medium") return w.hikeLength > 4 && w.hikeLength <= 7;
+                    if (length === "Long") return w.hikeLength > 7;
+                    return true;
+                });
+            }
+            displayWainwrights(filtered);
+        }
+
+        function showInfo(wainwright) {
+            const infoDiv = document.getElementById("info-container");
+            infoDiv.innerHTML = `
+                <div class="wainwright-info">
+                    <h3>${wainwright.name}</h3>
+                    <p><strong>Region:</strong> ${wainwright.region}</p>
+                    <p><strong>Difficulty:</strong> ${wainwright.difficulty}</p>
+                    <p><strong>Scramble:</strong> ${wainwright.scramble}</p>
+                    <p><strong>Dog Friendly:</strong> ${wainwright.dogFriendly}</p>
+                    <p><strong>Weather:</strong> ${wainwright.weather || 'Loading...'}</p>
+                    <p><strong>Height:</strong> ${wainwright.height}</p>
+                    <p><strong>Hike Length:</strong> ${wainwright.hikeLength} miles</p>
+                    <p><strong>Estimated Time:</strong> ${wainwright.time} hours</p>
+                    <p><strong>GPX Route:</strong> <a href="${wainwright.gpxLink}" target="_blank">Download</a></p>
+                    <p><strong>OS Map:</strong> <a href="${wainwright.osMapLink}" target="_blank">View</a></p>
+                    <p><strong>Mountain Forecast:</strong> <a href="${wainwright.mountainForecast}" target="_blank">Check</a></p>
+                    <p><strong>Car Park:</strong> ${wainwright.carpark} (${wainwright.postcode})</p>
+                    <p><strong>What3Words:</strong> ${wainwright.what3words}</p>
+                    <p><strong>Fun Fact:</strong> ${wainwright.funFacts}</p>
+                    <p><strong>Additional Info:</strong> ${wainwright.additionalInfo}</p>
+                    <p><strong>Instagram Reel:</strong> <a href="${wainwright.instagramReel}" target="_blank">Watch</a></p>
+                </div>
+            `;
+        }
+
+        async function init() {
+            displayTopWainwrights();
+            displayWainwrights();
+            await updateWeather();
+            displayTopWainwrights();
+            displayWainwrights();
+        }
+    </script>
+
+    const allWainwrights = [
+    {name:"Allen Crags",region:"Southern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"785m",hikeLength:6,lat:54.468,lon:-3.171,gpxLink:"https://www.walklakes.co.uk/gpx/Allen_Crags.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.468,-3.171",mountainForecast:"https://www.mountain-forecast.com/peaks/Allen-Crags/forecasts/785",carpark:"Seathwaite Car Park",postcode:"CA12 5XQ",what3words:"///allen.crag.walk",funFacts:"A quieter fell with great views, often overshadowed by its more famous neighbors.",additionalInfo:"Often combined with other Scafell routes, Allen Crags offers a rewarding hike with stunning views over Borrowdale and the surrounding fells.",instagramReel:"https://www.instagram.com/reel/allen_crags",time:3.0},
+    {name:"Angle Tarn",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"568m",hikeLength:5.5,lat:54.520,lon:-2.905,gpxLink:"https://www.walklakes.co.uk/gpx/Angle_Tarn.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.520,-2.905",mountainForecast:"https://www.mountain-forecast.com/peaks/Angle-Tarn/forecasts/568",carpark:"Patterdale Car Park",postcode:"CA11 0NN",what3words:"///tarn.walk.view",funFacts:"Named after a beautiful tarn, one of the prettiest in the Lake District.",additionalInfo:"A pleasant walk with a scenic highlight at Angle Tarn, this route offers a relatively gentle ascent with rewarding views over Ullswater.",instagramReel:"https://www.instagram.com/reel/angle_tarn",time:2.75},
+    {name:"Ard Crags",region:"North Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"581m",hikeLength:4.5,lat:54.567,lon:-3.228,gpxLink:"https://www.walklakes.co.uk/gpx/Ard_Crags.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.567,-3.228",mountainForecast:"https://www.mountain-forecast.com/peaks/Ard-Crags/forecasts/581",carpark:"Newlands Valley Car Park",postcode:"CA12 5TS",what3words:"///crags.walk.ridge",funFacts:"A quieter fell with good views over the Newlands Valley.",additionalInfo:"A straightforward ascent from the Newlands Valley, Ard Crags provides a peaceful hike with panoramic views towards Skiddaw.",instagramReel:"https://www.instagram.com/reel/ard_crags",time:2.25},
+    {name:"Armboth Fell",region:"Central Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"479m",hikeLength:3,lat:54.535,lon:-3.094,gpxLink:"https://www.walklakes.co.uk/gpx/Armboth_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.535,-3.094",mountainForecast:"https://www.mountain-forecast.com/peaks/Armboth-Fell/forecasts/479",carpark:"Thirlmere Car Park",postcode:"CA12 4TW",what3words:"///fell.walk.low",funFacts:"A gentle fell near Thirlmere with a secretive charm.",additionalInfo:"An easy walk with lake views over Thirlmere, perfect for a relaxed outing.",instagramReel:"https://www.instagram.com/reel/armboth_fell",time:1.5},
+    {name:"Arnison Crag",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"433m",hikeLength:4,lat:54.531,lon:-2.960,gpxLink:"https://www.walklakes.co.uk/gpx/Arnison_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.531,-2.960",mountainForecast:"https://www.mountain-forecast.com/peaks/Arnison-Crag/forecasts/433",carpark:"Patterdale Car Park",postcode:"CA11 0NN",what3words:"///crag.walk.view",funFacts:"A smaller fell with good views, part of the famous Fairfield Horseshoe.",additionalInfo:"Part of the Fairfield Horseshoe, Arnison Crag offers a moderate ascent with excellent views over Ullswater.",instagramReel:"https://www.instagram.com/reel/arnison_crag",time:2.0},
+    {name:"Bakestall",region:"Northern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"673m",hikeLength:5.5,lat:54.671,lon:-3.141,gpxLink:"https://www.walklakes.co.uk/gpx/Bakestall.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.671,-3.141",mountainForecast:"https://www.mountain-forecast.com/peaks/Bakestall/forecasts/673",carpark:"Peter House Farm Car Park",postcode:"CA12 4TA",what3words:"///bake.walk.high",funFacts:"A quieter northern fell often overlooked by Skiddaw climbers.",additionalInfo:"Often climbed with Skiddaw, Bakestall provides a quieter alternative with expansive views over the Northern Fells.",instagramReel:"https://www.instagram.com/reel/bakestall",time:2.75},
+    {name:"Bannerdale Crags",region:"Northern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"683m",hikeLength:6,lat:54.664,lon:-3.036,gpxLink:"https://www.walklakes.co.uk/gpx/Bannerdale_Crags.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.664,-3.036",mountainForecast:"https://www.mountain-forecast.com/peaks/Bannerdale-Crags/forecasts/683",carpark:"Mungrisdale Car Park",postcode:"CA11 0XR",what3words:"///crags.walk.view",funFacts:"Features a dramatic craggy face visible from miles away.",additionalInfo:"A scenic northern hike, Bannerdale Crags offers stunning views over the Blencathra range.",instagramReel:"https://www.instagram.com/reel/bannerdale_crags",time:3.0},
+    {name:"Barf",region:"North Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"No",weather:"",height:"468m",hikeLength:4,lat:54.611,lon:-3.225,gpxLink:"https://www.walklakes.co.uk/gpx/Barf.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.611,-3.225",mountainForecast:"https://www.mountain-forecast.com/peaks/Barf/forecasts/468",carpark:"Powter How Car Park",postcode:"CA13 0SG",what3words:"///barf.walk.ridge",funFacts:"Known for its steep scramble and the Bishop of Barf rock.",additionalInfo:"A short but challenging climb, Barf features a steep scramble with great views over Bassenthwaite Lake.",instagramReel:"https://www.instagram.com/reel/barf",time:2.25},
+    {name:"Barrow",region:"North Western Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"455m",hikeLength:3.5,lat:54.587,lon:-3.193,gpxLink:"https://www.walklakes.co.uk/gpx/Barrow.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.587,-3.193",mountainForecast:"https://www.mountain-forecast.com/peaks/Barrow/forecasts/455",carpark:"Braithwaite Car Park",postcode:"CA12 5RY",what3words:"///barrow.walk.view",funFacts:"A gentle fell with good views over Derwentwater.",additionalInfo:"An easy walk near Keswick, Barrow offers panoramic views over Derwentwater.",instagramReel:"https://www.instagram.com/reel/barrow",time:1.75},
+    {name:"Base Brown",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"646m",hikeLength:5,lat:54.486,lon:-3.196,gpxLink:"https://www.walklakes.co.uk/gpx/Base_Brown.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.486,-3.196",mountainForecast:"https://www.mountain-forecast.com/peaks/Base-Brown/forecasts/646",carpark:"Seathwaite Car Park",postcode:"CA12 5XQ",what3words:"///base.walk.brown",funFacts:"A quieter fell near Great Gable with a subtle charm.",additionalInfo:"A scenic approach from Borrowdale, Base Brown offers views towards Great Gable.",instagramReel:"https://www.instagram.com/reel/base_brown",time:2.5},
+    {name:"Birkhouse Moor",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"718m",hikeLength:6,lat:54.537,lon:-3.013,gpxLink:"https://www.walklakes.co.uk/gpx/Birkhouse_Moor.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.537,-3.013",mountainForecast:"https://www.mountain-forecast.com/peaks/Birkhouse-Moor/forecasts/718",carpark:"Glenridding Car Park",postcode:"CA11 0PA",what3words:"///moor.walk.view",funFacts:"Offers views towards Helvellyn and Striding Edge.",additionalInfo:"A pleasant ridge walk near Helvellyn with stunning vistas over Ullswater.",instagramReel:"https://www.instagram.com/reel/birkhouse_moor",time:3.0},
+    {name:"Birks",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"622m",hikeLength:5.5,lat:54.526,lon:-2.947,gpxLink:"https://www.walklakes.co.uk/gpx/Birks.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.526,-2.947",mountainForecast:"https://www.mountain-forecast.com/peaks/Birks/forecasts/622",carpark:"Patterdale Car Park",postcode:"CA11 0NN",what3words:"///birks.walk.view",funFacts:"A quieter fell near Ullswater with a gentle summit.",additionalInfo:"A scenic hike with good views over Ullswater, less crowded than nearby peaks.",instagramReel:"https://www.instagram.com/reel/birks",time:2.75},
+    {name:"Black Fell",region:"Southern Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"323m",hikeLength:3,lat:54.399,lon:-3.015,gpxLink:"https://www.walklakes.co.uk/gpx/Black_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.399,-3.015",mountainForecast:"https://www.mountain-forecast.com/peaks/Black-Fell/forecasts/323",carpark:"Tarn Hows Car Park",postcode:"LA21 8DP",what3words:"///black.fell.walk",funFacts:"A low fell with great views over Tarn Hows.",additionalInfo:"An easy walk near Coniston with superb views over Tarn Hows.",instagramReel:"https://www.instagram.com/reel/black_fell",time:1.5},
+    {name:"Blake Fell",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"573m",hikeLength:5,lat:54.563,lon:-3.377,gpxLink:"https://www.walklakes.co.uk/gpx/Blake_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.563,-3.377",mountainForecast:"https://www.mountain-forecast.com/peaks/Blake-Fell/forecasts/573",carpark:"Felldyke Car Park",postcode:"CA13 0RU",what3words:"///blake.fell.walk",funFacts:"A quieter western fell with expansive views.",additionalInfo:"A gentle ascent with good views over Loweswater in the Western Fells.",instagramReel:"https://www.instagram.com/reel/blake_fell",time:2.5},
+    {name:"Blea Rigg",region:"Central Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"541m",hikeLength:4.5,lat:54.467,lon:-3.043,gpxLink:"https://www.walklakes.co.uk/gpx/Blea_Rigg.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.467,-3.043",mountainForecast:"https://www.mountain-forecast.com/peaks/Blea-Rigg/forecasts/541",carpark:"Grasmere Car Park",postcode:"LA22 9SW",what3words:"///blea.walk.rigg",funFacts:"A scenic fell near Grasmere with charming tarns.",additionalInfo:"A pleasant walk with tarns near Grasmere, offering beautiful scenery.",instagramReel:"https://www.instagram.com/reel/blea_rigg",time:2.25},
+    {name:"Bleaberry Fell",region:"Central Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"590m",hikeLength:5,lat:54.573,lon:-3.108,gpxLink:"https://www.walklakes.co.uk/gpx/Bleaberry_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.573,-3.108",mountainForecast:"https://www.mountain-forecast.com/peaks/Bleaberry-Fell/forecasts/590",carpark:"Keswick Car Park",postcode:"CA12 5DF",what3words:"///bleaberry.walk.fell",funFacts:"Offers views over Keswick and Derwentwater.",additionalInfo:"A straightforward climb near Keswick with excellent views.",instagramReel:"https://www.instagram.com/reel/bleaberry_fell",time:2.5},
+    {name:"Blencathra",region:"Northern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"868m",hikeLength:7.5,lat:54.640,lon:-3.050,gpxLink:"https://www.walklakes.co.uk/gpx/Blencathra.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.640,-3.050",mountainForecast:"https://www.mountain-forecast.com/peaks/Blencathra/forecasts/868",carpark:"Scales Fell Car Park",postcode:"CA12 4TL",what3words:"///sharp.steep.path",funFacts:"Known for its rugged ridges and outstanding views.",additionalInfo:"A challenging route with the famous Sharp Edge scramble, offering breathtaking views.",instagramReel:"https://www.instagram.com/reel/blencathra",time:4.5},
+    {name:"Bowfell",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"902m",hikeLength:6.5,lat:54.448,lon:-3.126,gpxLink:"https://www.walklakes.co.uk/gpx/Bowfell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.448,-3.126",mountainForecast:"https://www.mountain-forecast.com/peaks/Bowfell/forecasts/902",carpark:"Old Dungeon Ghyll",postcode:"LA22 9JY",what3words:"///fell.rocks.view",funFacts:"Offers stunning views of the Langdale Pikes and beyond.",additionalInfo:"A classic Southern Fells hike with rocky sections and panoramic views.",instagramReel:"https://www.instagram.com/reel/bowfell",time:4.0},
+    {name:"Brim Fell",region:"Southern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"796m",hikeLength:6,lat:54.378,lon:-3.128,gpxLink:"https://www.walklakes.co.uk/gpx/Brim_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.378,-3.128",mountainForecast:"https://www.mountain-forecast.com/peaks/Brim-Fell/forecasts/796",carpark:"Coniston Car Park",postcode:"LA21 8ED",what3words:"///brim.fell.walk",funFacts:"A ridge walk near Coniston with expansive vistas.",additionalInfo:"Often climbed with Coniston Old Man, offering stunning views over Coniston Water.",instagramReel:"https://www.instagram.com/reel/brim_fell",time:3.0},
+    {name:"Brock Crags",region:"Far Eastern Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"561m",hikeLength:4,lat:54.518,lon:-2.891,gpxLink:"https://www.walklakes.co.uk/gpx/Brock_Crags.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.518,-2.891",mountainForecast:"https://www.mountain-forecast.com/peaks/Brock-Crags/forecasts/561",carpark:"Hartsop Car Park",postcode:"CA11 0NZ",what3words:"///brock.walk.crag",funFacts:"A gentle fell with good views near Angle Tarn.",additionalInfo:"An easy walk near Angle Tarn with scenic views over the Far Eastern Fells.",instagramReel:"https://www.instagram.com/reel/brock_crags",time:2.0},
+    {name:"Buckbarrow",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"423m",hikeLength:3.5,lat:54.447,lon:-3.315,gpxLink:"https://www.walklakes.co.uk/gpx/Buckbarrow.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.447,-3.315",mountainForecast:"https://www.mountain-forecast.com/peaks/Buckbarrow/forecasts/423",carpark:"Wasdale Head Car Park",postcode:"CA20 1EX",what3words:"///buck.walk.low",funFacts:"A small fell with big views over Wastwater.",additionalInfo:"A short hike near Wastwater with impressive views over England’s deepest lake.",instagramReel:"https://www.instagram.com/reel/buckbarrow",time:1.75},
+    {name:"Burnbank Fell",region:"Western Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"475m",hikeLength:4,lat:54.558,lon:-3.375,gpxLink:"https://www.walklakes.co.uk/gpx/Burnbank_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.558,-3.375",mountainForecast:"https://www.mountain-forecast.com/peaks/Burnbank-Fell/forecasts/475",carpark:"Loweswater Car Park",postcode:"CA13 0RU",what3words:"///burn.walk.fell",funFacts:"A gentle fell overlooking Loweswater with serene views.",additionalInfo:"An easy walk with lake views over Loweswater, ideal for a quiet hike.",instagramReel:"https://www.instagram.com/reel/burnbank_fell",time:2.0},
+    {name:"Calf Crag",region:"Central Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"537m",hikeLength:5,lat:54.475,lon:-3.058,gpxLink:"https://www.walklakes.co.uk/gpx/Calf_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.475,-3.058",mountainForecast:"https://www.mountain-forecast.com/peaks/Calf-Crag/forecasts/537",carpark:"Grasmere Car Park",postcode:"LA22 9SW",what3words:"///calf.walk.crag",funFacts:"A scenic fell near Grasmere with picturesque tarns.",additionalInfo:"A pleasant ridge walk from Grasmere with beautiful scenery.",instagramReel:"https://www.instagram.com/reel/calf_crag",time:2.5},
+    {name:"Carrock Fell",region:"Northern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"663m",hikeLength:5.5,lat:54.694,lon:-3.018,gpxLink:"https://www.walklakes.co.uk/gpx/Carrock_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.694,-3.018",mountainForecast:"https://www.mountain-forecast.com/peaks/Carrock-Fell/forecasts/663",carpark:"Stone Ends Car Park",postcode:"CA7 8XY",what3words:"///carrock.walk.fell",funFacts:"Features an ancient hill fort at its summit.",additionalInfo:"A quieter northern fell with historical interest and expansive views.",instagramReel:"https://www.instagram.com/reel/carrock_fell",time:2.75},
+    {name:"Castle Crag",region:"North Western Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"290m",hikeLength:2.5,lat:54.529,lon:-3.159,gpxLink:"https://www.walklakes.co.uk/gpx/Castle_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.529,-3.159",mountainForecast:"https://www.mountain-forecast.com/peaks/Castle-Crag/forecasts/290",carpark:"Rosthwaite Car Park",postcode:"CA12 5XB",what3words:"///castle.walk.crag",funFacts:"The smallest Wainwright with a big character and slate quarry history.",additionalInfo:"A short walk with great views and historical slate quarries.",instagramReel:"https://www.instagram.com/reel/castle_crag",time:1.25},
+    {name:"Catbells",region:"Central Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"451m",hikeLength:3.5,lat:54.568,lon:-3.170,gpxLink:"https://www.walklakes.co.uk/gpx/Catbells.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.568,-3.170",mountainForecast:"https://www.mountain-forecast.com/peaks/Catbells/forecasts/451",carpark:"Catbells Car Park",postcode:"CA12 5XP",what3words:"///easy.walk.summit",funFacts:"Perfect for beginners with one of the best views of Derwentwater.",additionalInfo:"A great family hike with rewarding panoramic views from the summit.",instagramReel:"https://www.instagram.com/reel/catbells",time:1.75},
+    {name:"Catstye Cam",region:"Eastern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"890m",hikeLength:7,lat:54.533,lon:-3.017,gpxLink:"https://www.walklakes.co.uk/gpx/Catstye_Cam.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.533,-3.017",mountainForecast:"https://www.mountain-forecast.com/peaks/Catstye-Cam/forecasts/890",carpark:"Glenridding Car Park",postcode:"CA11 0PA",what3words:"///cat.walk.high",funFacts:"A sharp peak near Helvellyn with a distinctive conical shape.",additionalInfo:"A challenging climb often combined with Helvellyn, offering stunning vistas.",instagramReel:"https://www.instagram.com/reel/catstye_cam",time:4.0},
+    {name:"Caw Fell",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"697m",hikeLength:6,lat:54.487,lon:-3.336,gpxLink:"https://www.walklakes.co.uk/gpx/Caw_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.487,-3.336",mountainForecast:"https://www.mountain-forecast.com/peaks/Caw-Fell/forecasts/697",carpark:"Ennerdale Bridge Car Park",postcode:"CA23 3AR",what3words:"///caw.walk.fell",funFacts:"A remote fell with wide views over Ennerdale.",additionalInfo:"A quiet hike in Ennerdale with expansive views over the Western Fells.",instagramReel:"https://www.instagram.com/reel/caw_fell",time:3.0},
+    {name:"Clough Head",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"726m",hikeLength:6,lat:54.593,lon:-3.036,gpxLink:"https://www.walklakes.co.uk/gpx/Clough_Head.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.593,-3.036",mountainForecast:"https://www.mountain-forecast.com/peaks/Clough-Head/forecasts/726",carpark:"Threlkeld Car Park",postcode:"CA12 4TT",what3words:"///clough.walk.head",funFacts:"Offers views over Thirlmere and the northern fells.",additionalInfo:"A scenic northern ridge walk with beautiful views over Thirlmere.",instagramReel:"https://www.instagram.com/reel/clough_head",time:3.0},
+    {name:"Cold Pike",region:"Southern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"701m",hikeLength:5.5,lat:54.415,lon:-3.163,gpxLink:"https://www.walklakes.co.uk/gpx/Cold_Pike.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.415,-3.163",mountainForecast:"https://www.mountain-forecast.com/peaks/Cold-Pike/forecasts/701",carpark:"Old Dungeon Ghyll",postcode:"LA22 9JY",what3words:"///cold.pike.walk",funFacts:"A quieter fell near Bowfell with subtle beauty.",additionalInfo:"A scenic southern hike with views towards Bowfell and the Langdale Pikes.",instagramReel:"https://www.instagram.com/reel/cold_pike",time:2.75},
+    {name:"Coniston Old Man",region:"Southern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"803m",hikeLength:6.5,lat:54.370,lon:-3.118,gpxLink:"https://www.walklakes.co.uk/gpx/Coniston_Old_Man.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.370,-3.118",mountainForecast:"https://www.mountain-forecast.com/peaks/Coniston-Old-Man/forecasts/803",carpark:"Coniston Car Park",postcode:"LA21 8ED",what3words:"///old.man.hike",funFacts:"A classic fell with views over Coniston Water and old mining history.",additionalInfo:"Popular and accessible with stunning views over Coniston Water.",instagramReel:"https://www.instagram.com/reel/coniston_old_man",time:3.25},
+    {name:"Crag Fell",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"523m",hikeLength:4.5,lat:54.513,lon:-3.395,gpxLink:"https://www.walklakes.co.uk/gpx/Crag_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.513,-3.395",mountainForecast:"https://www.mountain-forecast.com/peaks/Crag-Fell/forecasts/523",carpark:"Bowness Knott Car Park",postcode:"CA23 3AX",what3words:"///crag.walk.fell",funFacts:"Offers views over Ennerdale Water and beyond.",additionalInfo:"A gentle western fell with scenic views over Ennerdale Water.",instagramReel:"https://www.instagram.com/reel/crag_fell",time:2.25},
+    {name:"Crinkle Crags",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"859m",hikeLength:7.5,lat:54.433,lon:-3.160,gpxLink:"https://www.walklakes.co.uk/gpx/Crinkle_Crags.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.433,-3.160",mountainForecast:"https://www.mountain-forecast.com/peaks/Crinkle-Crags/forecasts/859",carpark:"Old Dungeon Ghyll",postcode:"LA22 9JY",what3words:"///crinkle.walk.crag",funFacts:"Known for its rugged crags and multiple summits.",additionalInfo:"A challenging hike with scrambling sections and stunning views over Langdale.",instagramReel:"https://www.instagram.com/reel/crinkle_crags",time:4.5},
+    {name:"Dale Head",region:"North Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"753m",hikeLength:6,lat:54.527,lon:-3.202,gpxLink:"https://www.walklakes.co.uk/gpx/Dale_Head.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.527,-3.202",mountainForecast:"https://www.mountain-forecast.com/peaks/Dale-Head/forecasts/753",carpark:"Honister Pass Car Park",postcode:"CA12 5XN",what3words:"///dale.walk.head",funFacts:"Offers views over Newlands Valley and Buttermere.",additionalInfo:"A scenic ridge walk with panoramic views over the Newlands Valley.",instagramReel:"https://www.instagram.com/reel/dale_head",time:3.0},
+    {name:"Dodd",region:"Northern Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"502m",hikeLength:3.5,lat:54.629,lon:-3.181,gpxLink:"https://www.walklakes.co.uk/gpx/Dodd.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.629,-3.181",mountainForecast:"https://www.mountain-forecast.com/peaks/Dodd/forecasts/502",carpark:"Mirehouse Car Park",postcode:"CA12 4QE",what3words:"///dodd.walk.view",funFacts:"A gentle fell near Bassenthwaite with a forested approach.",additionalInfo:"An easy walk with lake views near Bassenthwaite through woodland.",instagramReel:"https://www.instagram.com/reel/dodd",time:1.75},
+    {name:"Dove Crag",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"792m",hikeLength:6.5,lat:54.489,lon:-2.972,gpxLink:"https://www.walklakes.co.uk/gpx/Dove_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.489,-2.972",mountainForecast:"https://www.mountain-forecast.com/peaks/Dove-Crag/forecasts/792",carpark:"Ambleside Car Park",postcode:"LA22 9BX",what3words:"///dove.walk.crag",funFacts:"Part of the Fairfield Horseshoe with a rocky summit.",additionalInfo:"A scenic eastern fell in the Fairfield Horseshoe with impressive views.",instagramReel:"https://www.instagram.com/reel/dove_crag",time:3.25},
+    {name:"Dow Crag",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"778m",hikeLength:6.5,lat:54.370,lon:-3.134,gpxLink:"https://www.walklakes.co.uk/gpx/Dow_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.370,-3.134",mountainForecast:"https://www.mountain-forecast.com/peaks/Dow-Crag/forecasts/778",carpark:"Coniston Car Park",postcode:"LA21 8ED",what3words:"///dow.walk.crag",funFacts:"Known for its rugged cliffs and climbing routes.",additionalInfo:"A challenging hike with scrambling opportunities and views over Coniston Water.",instagramReel:"https://www.instagram.com/reel/dow_crag",time:4.0},
+    {name:"Eagle Crag",region:"Central Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"No",weather:"",height:"525m",hikeLength:5,lat:54.510,lon:-3.070,gpxLink:"https://www.walklakes.co.uk/gpx/Eagle_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.510,-3.070",mountainForecast:"https://www.mountain-forecast.com/peaks/Eagle-Crag/forecasts/525",carpark:"Stonethwaite Car Park",postcode:"CA12 5XG",what3words:"///eagle.walk.crag",funFacts:"A rugged fell in Borrowdale with a steep approach.",additionalInfo:"A scenic scramble in Borrowdale with rewarding views over the Central Fells.",instagramReel:"https://www.instagram.com/reel/eagle_crag",time:2.75},
+    {name:"Eel Crag",region:"North Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"839m",hikeLength:7,lat:54.583,lon:-3.250,gpxLink:"https://www.walklakes.co.uk/gpx/Eel_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.583,-3.250",mountainForecast:"https://www.mountain-forecast.com/peaks/Eel-Crag/forecasts/839",carpark:"Coledale Car Park",postcode:"CA12 5TW",what3words:"///eel.walk.crag",funFacts:"A high fell in Coledale with a broad summit.",additionalInfo:"A broad summit with great views in the Coledale area.",instagramReel:"https://www.instagram.com/reel/eel_crag",time:3.5},
+    {name:"Fairfield",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"873m",hikeLength:7,lat:54.497,lon:-2.991,gpxLink:"https://www.walklakes.co.uk/gpx/Fairfield.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.497,-2.991",mountainForecast:"https://www.mountain-forecast.com/peaks/Fairfield/forecasts/873",carpark:"Rydal Car Park",postcode:"LA22 9LW",what3words:"///ridge.walk.view",funFacts:"Part of the classic horseshoe walk with a flat summit plateau.",additionalInfo:"A popular route with expansive views in the Eastern Fells.",instagramReel:"https://www.instagram.com/reel/fairfield",time:3.5},
+    {name:"Fellbarrow",region:"Western Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"416m",hikeLength:3.5,lat:54.587,lon:-3.383,gpxLink:"https://www.walklakes.co.uk/gpx/Fellbarrow.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.587,-3.383",mountainForecast:"https://www.mountain-forecast.com/peaks/Fellbarrow/forecasts/416",carpark:"Loweswater Car Park",postcode:"CA13 0RU",what3words:"///fell.walk.low",funFacts:"A gentle fell with lake views over Loweswater.",additionalInfo:"An easy western walk with scenic views over Loweswater.",instagramReel:"https://www.instagram.com/reel/fellbarrow",time:1.75},
+    {name:"Fleetwith Pike",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"648m",hikeLength:5.5,lat:54.516,lon:-3.231,gpxLink:"https://www.walklakes.co.uk/gpx/Fleetwith_Pike.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.516,-3.231",mountainForecast:"https://www.mountain-forecast.com/peaks/Fleetwith-Pike/forecasts/648",carpark:"Honister Pass Car Park",postcode:"CA12 5XN",what3words:"///fleet.walk.pike",funFacts:"Offers views over Buttermere and a dramatic profile.",additionalInfo:"A scenic western hike with stunning views over Buttermere.",instagramReel:"https://www.instagram.com/reel/fleetwith_pike",time:2.75},
+    {name:"Froswick",region:"Far Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"720m",hikeLength:6,lat:54.463,lon:-2.872,gpxLink:"https://www.walklakes.co.uk/gpx/Froswick.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.463,-2.872",mountainForecast:"https://www.mountain-forecast.com/peaks/Froswick/forecasts/720",carpark:"Kentmere Car Park",postcode:"LA8 9JP",what3words:"///fro.walk.view",funFacts:"Part of the Kentmere Round with a sharp ridge.",additionalInfo:"A scenic eastern fell in the Kentmere Round with fine views.",instagramReel:"https://www.instagram.com/reel/froswick",time:3.0},
+    {name:"Gavel Fell",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"526m",hikeLength:4.5,lat:54.559,lon:-3.375,gpxLink:"https://www.walklakes.co.uk/gpx/Gavel_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.559,-3.375",mountainForecast:"https://www.mountain-forecast.com/peaks/Gavel-Fell/forecasts/526",carpark:"Loweswater Car Park",postcode:"CA13 0RU",what3words:"///gavel.walk.fell",funFacts:"A quieter western fell with gentle slopes.",additionalInfo:"A gentle ascent with views in the Western Fells.",instagramReel:"https://www.instagram.com/reel/gavel_fell",time:2.25},
+    {name:"Gibson Knott",region:"Central Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"420m",hikeLength:4,lat:54.481,lon:-3.031,gpxLink:"https://www.walklakes.co.uk/gpx/Gibson_Knott.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.481,-3.031",mountainForecast:"https://www.mountain-forecast.com/peaks/Gibson-Knott/forecasts/420",carpark:"Grasmere Car Park",postcode:"LA22 9SW",what3words:"///gibson.walk.knott",funFacts:"A small fell with good views near Grasmere.",additionalInfo:"An easy ridge walk near Grasmere with pleasant views.",instagramReel:"https://www.instagram.com/reel/gibson_knott",time:2.0},
+    {name:"Glaramara",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"783m",hikeLength:7,lat:54.486,lon:-3.162,gpxLink:"https://www.walklakes.co.uk/gpx/Glaramara.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.486,-3.162",mountainForecast:"https://www.mountain-forecast.com/peaks/Glaramara/forecasts/783",carpark:"Seathwaite Car Park",postcode:"CA12 5XQ",what3words:"///glara.walk.high",funFacts:"A rugged fell in Borrowdale with multiple tops.",additionalInfo:"A challenging hike with scrambling and stunning views over Borrowdale.",instagramReel:"https://www.instagram.com/reel/glaramara",time:4.0},
+    {name:"Grange Fell",region:"Central Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"416m",hikeLength:3.5,lat:54.559,lon:-3.142,gpxLink:"https://www.walklakes.co.uk/gpx/Grange_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.559,-3.142",mountainForecast:"https://www.mountain-forecast.com/peaks/Grange-Fell/forecasts/416",carpark:"Grange Village Car Park",postcode:"CA12 5UQ",what3words:"///grange.walk.fell",funFacts:"A small fell with good views over Borrowdale.",additionalInfo:"An easy walk near Borrowdale with scenic views over the valley.",instagramReel:"https://www.instagram.com/reel/grange_fell",time:1.75},
+    {name:"Gray Crag",region:"Far Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"699m",hikeLength:6,lat:54.447,lon:-2.879,gpxLink:"https://www.walklakes.co.uk/gpx/Gray_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.447,-2.879",mountainForecast:"https://www.mountain-forecast.com/peaks/Gray-Crag/forecasts/699",carpark:"Hartsop Car Park",postcode:"CA11 0NZ",what3words:"///gray.walk.crag",funFacts:"Part of the Kentmere Round with a grassy summit.",additionalInfo:"A scenic eastern fell in the Kentmere Round with fine views.",instagramReel:"https://www.instagram.com/reel/gray_crag",time:3.0},
+    {name:"Graystones",region:"North Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"452m",hikeLength:4,lat:54.592,lon:-3.319,gpxLink:"https://www.walklakes.co.uk/gpx/Graystones.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.592,-3.319",mountainForecast:"https://www.mountain-forecast.com/peaks/Graystones/forecasts/452",carpark:"Scawgill Bridge Car Park",postcode:"CA13 0TJ",what3words:"///gray.walk.stones",funFacts:"A gentle fell with good views over the western lakes.",additionalInfo:"An easy western walk with scenic views over the North Western Fells.",instagramReel:"https://www.instagram.com/reel/graystones",time:2.0},
+    {name:"Great Borne",region:"Western Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"616m",hikeLength:5.5,lat:54.535,lon:-3.353,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Borne.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.535,-3.353",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Borne/forecasts/616",carpark:"Bowness Knott Car Park",postcode:"CA23 3AX",what3words:"///great.walk.borne",funFacts:"Offers views over Ennerdale and a quiet summit.",additionalInfo:"A scenic western hike with beautiful views over Ennerdale Water.",instagramReel:"https://www.instagram.com/reel/great_borne",time:2.75},
+    {name:"Great Cockup",region:"Northern Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"526m",hikeLength:4,lat:54.669,lon:-3.107,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Cockup.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.669,-3.107",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Cockup/forecasts/526",carpark:"Orthwaite Car Park",postcode:"CA7 1JS",what3words:"///cockup.walk.great",funFacts:"A quirky name with good views over the northern fells.",additionalInfo:"An easy northern walk with scenic views over the Northern Fells.",instagramReel:"https://www.instagram.com/reel/great_cockup",time:2.0},
+    {name:"Great Crag",region:"Central Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"449m",hikeLength:3.5,lat:54.553,lon:-3.107,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Crag.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.553,-3.107",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Crag/forecasts/449",carpark:"Watendlath Car Park",postcode:"CA12 5UW",what3words:"///great.walk.crag",funFacts:"A small fell with tarns and a gentle approach.",additionalInfo:"A gentle walk near Borrowdale with scenic tarns and views.",instagramReel:"https://www.instagram.com/reel/great_crag",time:1.75},
+    {name:"Great Gable",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"899m",hikeLength:5.8,lat:54.482,lon:-3.219,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Gable.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.482,-3.219",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Gable/forecasts/899",carpark:"Seathwaite Car Park",postcode:"CA12 5XQ",what3words:"///wet.muddy.trail",funFacts:"One of the most iconic peaks with dramatic shape and sweeping views.",additionalInfo:"A challenging hike with scrambling sections and breathtaking vistas.",instagramReel:"https://www.instagram.com/reel/great_gable",time:3.0},
+    {name:"Great Mell Fell",region:"Northern Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"537m",hikeLength:3,lat:54.620,lon:-2.936,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Mell_Fell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.620,-2.936",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Mell-Fell/forecasts/537",carpark:"Mell Fell Car Park",postcode:"CA11 0SH",what3words:"///mell.walk.great",funFacts:"A rounded fell with good views and a gentle dome shape.",additionalInfo:"An easy northern walk with scenic views over the surrounding fells.",instagramReel:"https://www.instagram.com/reel/great_mell_fell",time:1.5},
+    {name:"Great Rigg",region:"Eastern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"766m",hikeLength:6,lat:54.492,lon:-2.987,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Rigg.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.492,-2.987",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Rigg/forecasts/766",carpark:"Rydal Car Park",postcode:"LA22 9LW",what3words:"///great.walk.rigg",funFacts:"Part of the Fairfield Horseshoe with a broad ridge.",additionalInfo:"A scenic eastern ridge in the Fairfield Horseshoe with expansive views.",instagramReel:"https://www.instagram.com/reel/great_rigg",time:3.0}
+];
+        const topWainwrights = [
+        {name:"Scafell Pike",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"978m",hikeLength:9,lat:54.454,lon:-3.211,gpxLink:"https://www.walklakes.co.uk/gpx/Scafell_Pike.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.454,-3.211",mountainForecast:"https://www.mountain-forecast.com/peaks/Scafell-Pike/forecasts/978",carpark:"Wasdale Head Car Park",postcode:"CA20 1EX",what3words:"///rocks.cliff.path",funFacts:"England's highest mountain with panoramic views.",additionalInfo:"A challenging ascent to the highest peak in England, Scafell Pike offers rugged terrain and stunning vistas, popular among serious hikers.",instagramReel:"https://www.instagram.com/reel/scafell_pike",time:4.5},
+        {name:"Helvellyn",region:"Eastern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"950m",hikeLength:8.5,lat:54.527,lon:-3.016,gpxLink:"https://www.walklakes.co.uk/gpx/Helvellyn.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.527,-3.016",mountainForecast:"https://www.mountain-forecast.com/peaks/Helvellyn/forecasts/950",carpark:"Glenridding Car Park",postcode:"CA11 0PA",what3words:"///mountain.cairn.ridge",funFacts:"Helvellyn is the third-highest peak in the Lake District, with views extending to Scotland on clear days!",additionalInfo:"The summit is accessible via several routes, including the popular Striding Edge, which offers some thrilling scrambling.",instagramReel:"https://www.instagram.com/reel/helvellyn",time:4.75},
+        {name:"Skiddaw",region:"Northern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"931m",hikeLength:6.2,lat:54.647,lon:-3.146,gpxLink:"https://www.walklakes.co.uk/gpx/Skiddaw.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.647,-3.146",mountainForecast:"https://www.mountain-forecast.com/peaks/Skiddaw/forecasts/931",carpark:"Latrigg Car Park",postcode:"CA12 4PH",what3words:"///summit.trek.easy",funFacts:"One of the easiest high fells to climb with expansive views.",additionalInfo:"A moderate ascent from Keswick, Skiddaw offers a straightforward climb with stunning views over the Northern Fells.",instagramReel:"https://www.instagram.com/reel/skiddaw",time:3.0},
+        {name:"Great Gable",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"899m",hikeLength:5.8,lat:54.482,lon:-3.219,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Gable.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.482,-3.219",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Gable/forecasts/899",carpark:"Seathwaite Car Park",postcode:"CA12 5XQ",what3words:"///wet.muddy.trail",funFacts:"Great Gable is one of the most iconic peaks, known for its dramatic shape and sweeping views.",additionalInfo:"This mountain has historical significance as it was dedicated to the fallen soldiers of World War I.",instagramReel:"https://www.instagram.com/reel/great_gable",time:3.0},
+        {name:"Blencathra",region:"Northern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"868m",hikeLength:7.5,lat:54.640,lon:-3.050,gpxLink:"https://www.walklakes.co.uk/gpx/Blencathra.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.640,-3.050",mountainForecast:"https://www.mountain-forecast.com/peaks/Blencathra/forecasts/868",carpark:"Scales Fell Car Park",postcode:"CA12 4TL",what3words:"///sharp.steep.path",funFacts:"Known for its rugged ridges and outstanding views, often considered one of the best hikes.",additionalInfo:"A challenging route with the famous Sharp Edge scramble, offering breathtaking views.",instagramReel:"https://www.instagram.com/reel/blencathra",time:4.5},
+        {name:"Catbells",region:"Central Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"451m",hikeLength:3.5,lat:54.568,lon:-3.170,gpxLink:"https://www.walklakes.co.uk/gpx/Catbells.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.568,-3.170",mountainForecast:"https://www.mountain-forecast.com/peaks/Catbells/forecasts/451",carpark:"Catbells Car Park",postcode:"CA12 5XP",what3words:"///easy.walk.summit",funFacts:"Perfect for beginners with one of the best views of Derwentwater.",additionalInfo:"A great family hike with rewarding panoramic views from the summit.",instagramReel:"https://www.instagram.com/reel/catbells",time:1.75},
+        {name:"Bowfell",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"902m",hikeLength:6.5,lat:54.448,lon:-3.126,gpxLink:"https://www.walklakes.co.uk/gpx/Bowfell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.448,-3.126",mountainForecast:"https://www.mountain-forecast.com/peaks/Bowfell/forecasts/902",carpark:"Old Dungeon Ghyll",postcode:"LA22 9JY",what3words:"///fell.rocks.view",funFacts:"Offers stunning views of the Langdale Pikes and beyond.",additionalInfo:"A classic Southern Fells hike with rocky sections and panoramic views.",instagramReel:"https://www.instagram.com/reel/bowfell",time:4.0},
+        {name:"Haystacks",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"597m",hikeLength:5,lat:54.507,lon:-3.247,gpxLink:"https://www.walklakes.co.uk/gpx/Haystacks.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.507,-3.247",mountainForecast:"https://www.mountain-forecast.com/peaks/Haystacks/forecasts/597",carpark:"Gatesgarth Car Park",postcode:"CA13 9XA",what3words:"///tarns.water.peace",funFacts:"Haystacks was Wainwright's favorite fell, with stunning tarns.",additionalInfo:"Features beautiful tarns and a rugged summit, offering a moderate hike with scrambling.",instagramReel:"https://www.instagram.com/reel/haystacks",time:2.5},
+        {name:"Langdale Pikes",region:"Central Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"736m",hikeLength:6,lat:54.456,lon:-3.097,gpxLink:"https://www.walklakes.co.uk/gpx/Langdale_Pikes.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.456,-3.097",mountainForecast:"https://www.mountain-forecast.com/peaks/Harrison-Stickle/forecasts/736",carpark:"New Dungeon Ghyll",postcode:"LA22 9JX",what3words:"///pikes.walk.lang",funFacts:"A group of peaks with dramatic profiles visible from miles away.",additionalInfo:"A moderate hike with optional scrambles, offering stunning views over Langdale Valley.",instagramReel:"https://www.instagram.com/reel/langdale_pikes",time:3.25},
+        {name:"Coniston Old Man",region:"Southern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"803m",hikeLength:6.5,lat:54.370,lon:-3.118,gpxLink:"https://www.walklakes.co.uk/gpx/Coniston_Old_Man.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.370,-3.118",mountainForecast:"https://www.mountain-forecast.com/peaks/Coniston-Old-Man/forecasts/803",carpark:"Coniston Car Park",postcode:"LA21 8ED",what3words:"///old.man.hike",funFacts:"A classic fell with views over Coniston Water and old mining history.",additionalInfo:"Popular and accessible with a steady climb and stunning views.",instagramReel:"https://www.instagram.com/reel/coniston_old_man",time:3.25}
+    ];
 
     init();
-    </script>
+</script>
 </body>
 </html>
