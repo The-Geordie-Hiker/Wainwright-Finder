@@ -63,126 +63,138 @@
     <div id="wainwright-list" class="button-container"></div>
     <div id="info-container"></div>
 
-    
-        
-        <script>
+    <script>
     const allWainwrights = [
         {name:"Haystacks",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"597m",hikeLength:5,lat:54.507,lon:-3.247,gpxLink:"https://www.walklakes.co.uk/gpx/Haystacks.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.507,-3.247",mountainForecast:"https://www.mountain-forecast.com/peaks/Haystacks/forecasts/597",carpark:"Gatesgarth Car Park",postcode:"CA13 9XA",what3words:"///tarns.water.peace",funFacts:"Haystacks was Wainwright's favorite fell, with stunning tarns.",additionalInfo:"Features beautiful tarns and a rugged summit, Haystacks offers a moderate hike with scrambling sections and breathtaking views over Buttermere.",instagramReel:"https://www.instagram.com/reel/haystacks"}
-       
     ];
-        async function fetchWeather(lat, lon) {
-            try {
-                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                const data = await response.json();
-                const weatherCode = data.current_weather.weathercode;
-                const weatherMap = {
-                    0: "Clear",
-                    1: "Sunny",
-                    2: "Partly Cloudy",
-                    3: "Cloudy",
-                    45: "Foggy",
-                    51: "Rainy",
-                    61: "Rainy",
-                    71: "Snowy",
-                    95: "Stormy"
-                };
-                return weatherMap[weatherCode] || "Unknown";
-            } catch (error) {
-                return "Unknown";
-            }
-        }
 
-        async function updateWeather() {
-            const weatherPromises = allWainwrights.map(async (wainwright) => {
-                wainwright.weather = await fetchWeather(wainwright.lat, wainwright.lon);
+    const topWainwrights = [
+        {name:"Scafell Pike",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"978m",hikeLength:9,lat:54.454,lon:-3.211,gpxLink:"https://www.walklakes.co.uk/gpx/Scafell_Pike.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.454,-3.211",mountainForecast:"https://www.mountain-forecast.com/peaks/Scafell-Pike/forecasts/978",carpark:"Wasdale Head Car Park",postcode:"CA20 1EX",what3words:"///rocks.cliff.path",funFacts:"England's highest mountain with panoramic views.",additionalInfo:"A challenging ascent to the highest peak in England, Scafell Pike offers rugged terrain and stunning vistas, popular among serious hikers.",instagramReel:"https://www.instagram.com/reel/scafell_pike"},
+        {name:"Helvellyn",region:"Eastern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"950m",hikeLength:8.5,lat:54.527,lon:-3.016,gpxLink:"https://www.walklakes.co.uk/gpx/Helvellyn.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.527,-3.016",mountainForecast:"https://www.mountain-forecast.com/peaks/Helvellyn/forecasts/950",carpark:"Glenridding Car Park",postcode:"CA11 0PA",what3words:"///mountain.cairn.ridge",funFacts:"Helvellyn is the third-highest peak in the Lake District, with views extending to Scotland on clear days!",additionalInfo:"The summit is accessible via several routes, including the popular Striding Edge, which offers some thrilling scrambling. It's a challenging but iconic hike with spectacular views.",instagramReel:"https://www.instagram.com/reel/helvellyn"},
+        {name:"Skiddaw",region:"Northern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"931m",hikeLength:6.2,lat:54.647,lon:-3.146,gpxLink:"https://www.walklakes.co.uk/gpx/Skiddaw.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.647,-3.146",mountainForecast:"https://www.mountain-forecast.com/peaks/Skiddaw/forecasts/931",carpark:"Latrigg Car Park",postcode:"CA12 4PH",what3words:"///summit.trek.easy",funFacts:"One of the easiest high fells to climb with expansive views.",additionalInfo:"A moderate ascent from Keswick, Skiddaw offers a straightforward climb with stunning views over the Northern Fells and beyond.",instagramReel:"https://www.instagram.com/reel/skiddaw"},
+        {name:"Great Gable",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"899m",hikeLength:5.8,lat:54.482,lon:-3.219,gpxLink:"https://www.walklakes.co.uk/gpx/Great_Gable.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.482,-3.219",mountainForecast:"https://www.mountain-forecast.com/peaks/Great-Gable/forecasts/899",carpark:"Seathwaite Car Park",postcode:"CA12 5XQ",what3words:"///wet.muddy.trail",funFacts:"Great Gable is one of the most iconic peaks, known for its dramatic shape and sweeping views across the Lake District.",additionalInfo:"This mountain has historical significance as it was dedicated to the fallen soldiers of World War I, offering a challenging hike with scrambling sections and breathtaking vistas.",instagramReel:"https://www.instagram.com/reel/great_gable"},
+        {name:"Blencathra",region:"Northern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"868m",hikeLength:7.5,lat:54.640,lon:-3.050,gpxLink:"https://www.walklakes.co.uk/gpx/Blencathra.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.640,-3.050",mountainForecast:"https://www.mountain-forecast.com/peaks/Blencathra/forecasts/868",carpark:"Scales Fell Car Park",postcode:"CA12 4TL",what3words:"///sharp.steep.path",funFacts:"Blencathra is known for its rugged ridges and outstanding views, often considered one of the best hikes in the Lake District.",additionalInfo:"A challenging route for experienced hikers, Blencathra provides dramatic scenery and exhilarating climbs, including the famous Sharp Edge scramble, with breathtaking views over the Northern Fells.",instagramReel:"https://www.instagram.com/reel/blencathra"},
+        {name:"Catbells",region:"Central Fells",difficulty:"Easy",scramble:"No",dogFriendly:"Yes",weather:"",height:"451m",hikeLength:3.5,lat:54.568,lon:-3.170,gpxLink:"https://www.walklakes.co.uk/gpx/Catbells.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.568,-3.170",mountainForecast:"https://www.mountain-forecast.com/peaks/Catbells/forecasts/451",carpark:"Catbells Car Park",postcode:"CA12 5XP",what3words:"///easy.walk.summit",funFacts:"Catbells is perfect for beginners and offers one of the best views of Derwentwater.",additionalInfo:"A great family hike, easy but with rewarding panoramic views from the summit, Catbells is one of the most popular fells due to its accessibility and stunning scenery.",instagramReel:"https://www.instagram.com/reel/catbells"},
+        {name:"Bowfell",region:"Southern Fells",difficulty:"Hard",scramble:"Yes",dogFriendly:"No",weather:"",height:"902m",hikeLength:6.5,lat:54.448,lon:-3.126,gpxLink:"https://www.walklakes.co.uk/gpx/Bowfell.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.448,-3.126",mountainForecast:"https://www.mountain-forecast.com/peaks/Bowfell/forecasts/902",carpark:"Old Dungeon Ghyll",postcode:"LA22 9JY",what3words:"///fell.rocks.view",funFacts:"Bowfell offers stunning views of the Langdale Pikes and beyond.",additionalInfo:"A classic Southern Fells hike with some rocky sections, Bowfell is a challenging ascent that rewards with panoramic views over the Langdale Valley and the Scafell range.",instagramReel:"https://www.instagram.com/reel/bowfell"},
+        {name:"Haystacks",region:"Western Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"597m",hikeLength:5,lat:54.507,lon:-3.247,gpxLink:"https://www.walklakes.co.uk/gpx/Haystacks.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.507,-3.247",mountainForecast:"https://www.mountain-forecast.com/peaks/Haystacks/forecasts/597",carpark:"Gatesgarth Car Park",postcode:"CA13 9XA",what3words:"///tarns.water.peace",funFacts:"Haystacks was Wainwright's favorite fell, with stunning tarns.",additionalInfo:"Features beautiful tarns and a rugged summit, Haystacks offers a moderate hike with scrambling sections and breathtaking views over Buttermere.",instagramReel:"https://www.instagram.com/reel/haystacks"},
+        {name:"Langdale Pikes",region:"Central Fells",difficulty:"Moderate",scramble:"Yes",dogFriendly:"Yes",weather:"",height:"736m",hikeLength:6,lat:54.456,lon:-3.097,gpxLink:"https://www.walklakes.co.uk/gpx/Langdale_Pikes.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.456,-3.097",mountainForecast:"https://www.mountain-forecast.com/peaks/Harrison-Stickle/forecasts/736",carpark:"New Dungeon Ghyll",postcode:"LA22 9JX",what3words:"///pikes.walk.lang",funFacts:"A group of peaks with dramatic profiles visible from miles away.",additionalInfo:"A moderate hike with optional scrambles, the Langdale Pikes offer stunning views over Langdale Valley and the Central Fells, a classic Lake District outing.",instagramReel:"https://www.instagram.com/reel/langdale_pikes"},
+        {name:"Coniston Old Man",region:"Southern Fells",difficulty:"Moderate",scramble:"No",dogFriendly:"Yes",weather:"",height:"803m",hikeLength:6.5,lat:54.370,lon:-3.118,gpxLink:"https://www.walklakes.co.uk/gpx/Coniston_Old_Man.gpx",osMapLink:"https://osmaps.ordnancesurvey.co.uk/54.370,-3.118",mountainForecast:"https://www.mountain-forecast.com/peaks/Coniston-Old-Man/forecasts/803",carpark:"Coniston Car Park",postcode:"LA21 8ED",what3words:"///old.man.hike",funFacts:"A classic fell with views over Coniston Water and old mining history.",additionalInfo:"Popular and accessible with a steady climb, Coniston Old Man offers a moderate hike with stunning views over Coniston Water and a glimpse into its industrial past.",instagramReel:"https://www.instagram.com/reel/coniston_old_man"}
+    ];
+
+    async function fetchWeather(lat, lon) {
+        try {
+            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+            const data = await response.json();
+            const weatherCode = data.current_weather.weathercode;
+            const weatherMap = {
+                0: "Clear",
+                1: "Sunny",
+                2: "Partly Cloudy",
+                3: "Cloudy",
+                45: "Foggy",
+                51: "Rainy",
+                61: "Rainy",
+                71: "Snowy",
+                95: "Stormy"
+            };
+            return weatherMap[weatherCode] || "Unknown";
+        } catch (error) {
+            console.error(`Error fetching weather for lat:${lat}, lon:${lon}`, error);
+            return "Unknown";
+        }
+    }
+
+    async function updateWeather() {
+        const weatherPromises = allWainwrights.map(async (wainwright) => {
+            wainwright.weather = await fetchWeather(wainwright.lat, wainwright.lon);
+        });
+        const topWeatherPromises = topWainwrights.map(async (wainwright) => {
+            wainwright.weather = await fetchWeather(wainwright.lat, wainwright.lon);
+        });
+        await Promise.all([...weatherPromises, ...topWeatherPromises]);
+    }
+
+    function displayTopWainwrights() {
+        const topWainwrightsDiv = document.getElementById("top-wainwrights");
+        topWainwrightsDiv.innerHTML = "";
+        const buttons = topWainwrights.map(wainwright => {
+            const button = document.createElement("button");
+            button.className = "button";
+            button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
+            button.onclick = () => showInfo(wainwright);
+            return button;
+        });
+        topWainwrightsDiv.append(...buttons);
+    }
+
+    function displayWainwrights(filtered = allWainwrights) {
+        const wainwrightListDiv = document.getElementById("wainwright-list");
+        wainwrightListDiv.innerHTML = "";
+        const buttons = filtered.map(wainwright => {
+            const button = document.createElement("button");
+            button.className = "button";
+            button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
+            button.onclick = () => showInfo(wainwright);
+            return button;
+        });
+        wainwrightListDiv.append(...buttons);
+    }
+
+    function applyFilters() {
+        const region = document.getElementById("region-filter").value;
+        const difficulty = document.getElementById("difficulty-filter").value;
+        const scramble = document.getElementById("scramble-filter").value;
+        const dogFriendly = document.getElementById("dog-filter").value;
+        const length = document.getElementById("length-filter").value;
+        let filtered = [...allWainwrights];
+        if (region) filtered = filtered.filter(w => w.region === region);
+        if (difficulty) filtered = filtered.filter(w => w.difficulty === difficulty);
+        if (scramble) filtered = filtered.filter(w => w.scramble === scramble);
+        if (dogFriendly) filtered = filtered.filter(w => w.dogFriendly === dogFriendly);
+        if (length) {
+            filtered = filtered.filter(w => {
+                if (length === "Short") return w.hikeLength <= 4;
+                if (length === "Medium") return w.hikeLength > 4 && w.hikeLength <= 7;
+                if (length === "Long") return w.hikeLength > 7;
+                return true;
             });
-            await Promise.all(weatherPromises);
         }
+        displayWainwrights(filtered);
+    }
 
-        function displayTopWainwrights() {
-            const topWainwrightsDiv = document.getElementById("top-wainwrights");
-            topWainwrightsDiv.innerHTML = "";
-            const top10 = ["Scafell Pike", "Helvellyn", "Skiddaw", "Great Gable", "Blencathra", 
-                          "Catbells", "Bowfell", "Haystacks", "Langdale Pikes", "Coniston Old Man"];
-            const buttons = top10.map(name => {
-                const wainwright = allWainwrights.find(w => w.name === name);
-                const button = document.createElement("button");
-                button.className = "button";
-                button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
-                button.onclick = () => showInfo(wainwright);
-                return button;
-            });
-            topWainwrightsDiv.append(...buttons);
-        }
+    function showInfo(wainwright) {
+        const infoDiv = document.getElementById("info-container");
+        infoDiv.innerHTML = `
+            <div class="wainwright-info">
+                <h3>${wainwright.name}</h3>
+                <p><strong>Region:</strong> ${wainwright.region}</p>
+                <p><strong>Difficulty:</strong> ${wainwright.difficulty}</p>
+                <p><strong>Scramble:</strong> ${wainwright.scramble}</p>
+                <p><strong>Dog Friendly:</strong> ${wainwright.dogFriendly}</p>
+                <p><strong>Weather:</strong> ${wainwright.weather || 'Loading...'}</p>
+                <p><strong>Height:</strong> ${wainwright.height}</p>
+                <p><strong>Hike Length:</strong> ${wainwright.hikeLength} miles</p>
+                <p><strong>GPX Route:</strong> <a href="${wainwright.gpxLink}" target="_blank">Download</a></p>
+                <p><strong>OS Map:</strong> <a href="${wainwright.osMapLink}" target="_blank">View</a></p>
+                <p><strong>Mountain Forecast:</strong> <a href="${wainwright.mountainForecast}" target="_blank">Check</a></p>
+                <p><strong>Car Park:</strong> ${wainwright.carpark} (${wainwright.postcode})</p>
+                <p><strong>What3Words:</strong> ${wainwright.what3words}</p>
+                <p><strong>Fun Fact:</strong> ${wainwright.funFacts}</p>
+                <p><strong>Additional Info:</strong> ${wainwright.additionalInfo}</p>
+                <p><strong>Instagram Reel:</strong> <a href="${wainwright.instagramReel}" target="_blank">Watch</a></p>
+            </div>
+        `;
+    }
 
-        function displayWainwrights(filtered = allWainwrights) {
-            const wainwrightListDiv = document.getElementById("wainwright-list");
-            wainwrightListDiv.innerHTML = "";
-            const buttons = filtered.map(wainwright => {
-                const button = document.createElement("button");
-                button.className = "button";
-                button.textContent = `${wainwright.name} (${wainwright.weather || 'Loading...'})`;
-                button.onclick = () => showInfo(wainwright);
-                return button;
-            });
-            wainwrightListDiv.append(...buttons);
-        }
+    async function init() {
+        displayTopWainwrights();
+        displayWainwrights();
+        await updateWeather();
+        displayTopWainwrights();
+        displayWainwrights();
+    }
 
-        function applyFilters() {
-            const region = document.getElementById("region-filter").value;
-            const difficulty = document.getElementById("difficulty-filter").value;
-            const scramble = document.getElementById("scramble-filter").value;
-            const dogFriendly = document.getElementById("dog-filter").value;
-            const length = document.getElementById("length-filter").value;
-            let filtered = [...allWainwrights];
-            if (region) filtered = filtered.filter(w => w.region === region);
-            if (difficulty) filtered = filtered.filter(w => w.difficulty === difficulty);
-            if (scramble) filtered = filtered.filter(w => w.scramble === scramble);
-            if (dogFriendly) filtered = filtered.filter(w => w.dogFriendly === dogFriendly);
-            if (length) {
-                filtered = filtered.filter(w => {
-                    if (length === "Short") return w.hikeLength <= 4;
-                    if (length === "Medium") return w.hikeLength > 4 && w.hikeLength <= 7;
-                    if (length === "Long") return w.hikeLength > 7;
-                    return true;
-                });
-            }
-            displayWainwrights(filtered);
-        }
-
-        function showInfo(wainwright) {
-            const infoDiv = document.getElementById("info-container");
-            infoDiv.innerHTML = `
-                <div class="wainwright-info">
-                    <h3>${wainwright.name}</h3>
-                    <p><strong>Region:</strong> ${wainwright.region}</p>
-                    <p><strong>Difficulty:</strong> ${wainwright.difficulty}</p>
-                    <p><strong>Scramble:</strong> ${wainwright.scramble}</p>
-                    <p><strong>Dog Friendly:</strong> ${wainwright.dogFriendly}</p>
-                    <p><strong>Weather:</strong> ${wainwright.weather || 'Loading...'}</p>
-                    <p><strong>Height:</strong> ${wainwright.height}</p>
-                    <p><strong>Hike Length:</strong> ${wainwright.hikeLength} miles</p>
-                    <p><strong>GPX Route:</strong> <a href="${wainwright.gpxLink}" target="_blank">Download</a></p>
-                    <p><strong>OS Map:</strong> <a href="${wainwright.osMapLink}" target="_blank">View</a></p>
-                    <p><strong>Mountain Forecast:</strong> <a href="${wainwright.mountainForecast}" target="_blank">Check</a></p>
-                    <p><strong>Car Park:</strong> ${wainwright.carpark} (${wainwright.postcode})</p>
-                    <p><strong>What3Words:</strong> ${wainwright.what3words}</p>
-                    <p><strong>Fun Fact:</strong> ${wainwright.funFacts}</p>
-                    <p><strong>Additional Info:</strong> ${wainwright.additionalInfo}</p>
-                    <p><strong>Instagram Reel:</strong> <a href="${wainwright.instagramReel}" target="_blank">Watch</a></p>
-                </div>
-            `;
-        }
-
-        async function init() {
-            displayTopWainwrights();
-            displayWainwrights();
-            await updateWeather();
-            displayTopWainwrights();
-            displayWainwrights();
-        }
-
-        init();
+    init();
     </script>
 </body>
 </html>
